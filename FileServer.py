@@ -24,6 +24,8 @@ import re
 from io import BytesIO
 import sys
 import subprocess
+import socket
+import socketserver
 
 try:
     import pyperclip
@@ -433,13 +435,38 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     })
 
 
+class ForkingHTTPServer(socketserver.ForkingTCPServer):
+    allow_reuse_address = 1
+
+    def server_bind(self):
+        socketserver.TCPServer.server_bind(self)
+        host, port = self.socket.getsockname()[:2]
+        self.server_name = socket.getfqdn(host)
+        self.server_port = port
+
+
 def test(HandlerClass=SimpleHTTPRequestHandler,
-         ServerClass=http.server.HTTPServer,
+         ServerClass=ForkingHTTPServer,
          port=8000):
+    # ServerClass=http.server.HTTPServer,
+    # port=8000):
+    # http.server.test(HandlerClass, ServerClass, port=port)
     http.server.test(HandlerClass, ServerClass, port=port)
 
 
+def get_self_ip():
+    ip = "can't get ip."
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+        return ip
+
+
 if __name__ == '__main__':
+    print(f"ip: {get_self_ip()}:{8000 if len(sys.argv) != 2 else sys.argv[1]}")
     if len(sys.argv) == 2:
         test(port=int(sys.argv[1]))
     else:

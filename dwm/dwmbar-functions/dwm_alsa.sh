@@ -6,14 +6,14 @@
 
 # Dependencies: alsa-utils
 
-# VOLUME_ICON_MUTE="🔇 "
-# VOLUME_ICON1="🔈 "
-# VOLUME_ICON2="🔉 "
-# VOLUME_ICON3="🔊 "
-VOLUME_ICON_MUTE="ﱝ "
-VOLUME_ICON1=""
-VOLUME_ICON2="墳"
-VOLUME_ICON3=""
+VOLUME_ICON_MUTE="🔇"
+VOLUME_ICON1="🔈"
+VOLUME_ICON2="🔉"
+VOLUME_ICON3="🔊"
+# VOLUME_ICON_MUTE="ﱝ "
+# VOLUME_ICON1=""
+# VOLUME_ICON2="墳"
+# VOLUME_ICON3=""
 
 dwm_alsa () {
     VOL=$(amixer get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")

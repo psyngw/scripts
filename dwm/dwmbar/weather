@@ -19,7 +19,7 @@ check_weather()
   else
     get_weather
   fi
-  head -n1 ./weather.buffer
+  head -n1 ./weather.buffer | awk ' {k=" "}; {for(i=1;i<=NF;i++) {k=k" "$i;}; print k}'
 }
 
 # if [ $(( 10#$(date '+%S') % 30 )) -eq 0 ]; then

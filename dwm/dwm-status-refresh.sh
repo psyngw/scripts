@@ -126,7 +126,8 @@ print_bat(){
 
 print_date(){
 	# date '+%Y-%m-%d %H:%M'
-  echo " $(date '+%Y-%m-%d %H:%M:%S')"
+  # echo " $(date '+%Y-%m-%d %H:%M:%S')"
+  echo "🗓️  $(date '+%Y-%m-%d %H:%M')"
 }
 
 show_record(){
@@ -165,7 +166,8 @@ get_bytes
 vel_recv=$(get_velocity $received_bytes $old_received_bytes $now)
 vel_trans=$(get_velocity $transmitted_bytes $old_transmitted_bytes $now)
 
-xsetroot -name "$(check_weather) |  $(get_ram)  $(get_load) |  $vel_recv  $vel_trans | $(dwm_alsa) | $(print_date)"
+# xsetroot -name "$(check_weather) |  $(get_ram)  $(get_load) |  $vel_recv 🔼 $vel_trans | $(dwm_alsa) | $(print_date)"
+xsetroot -name "$(check_weather) | 💾 $(get_ram) 💻 $(get_load) | 🔽 $vel_recv 🔼 $vel_trans | $(dwm_alsa) | $(print_date)"
 # for laptop
 # xsetroot -name "  💿 $(get_ram)M $(get_load)  $vel_recv  $vel_trans $(dwm_alsa) [ $(print_bat) ] $(get_uptime) $(print_date) "
 
